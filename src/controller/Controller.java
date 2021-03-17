@@ -1,5 +1,6 @@
 package controller;
 
+import model.Table;
 import model.User;
 import persistence.IUserService;
 import persistence.UserServiceQuemado;
@@ -19,5 +20,9 @@ public class Controller {
 
     public List<User> getUsers(){
         return userService.getUsers();
+    }
+
+    public List<Table> getUserTables(User u){
+        return userService.getUSerTables(u);
     }
 }

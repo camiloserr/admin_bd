@@ -1,5 +1,6 @@
 package persistence;
 
+import model.Table;
 import model.User;
 
 import java.util.ArrayList;
@@ -21,4 +22,19 @@ public class UserServiceQuemado implements IUserService{
         return usuarios;
 
     }
+
+    @Override
+    public List<Table> getUSerTables(User u) {
+        List<Table> tables = new ArrayList<>();
+
+        tables.add(new Table("Notas"));
+        tables.add(new Table("Estudiantes"));
+        tables.add(new Table("semestres"));
+        tables.add(new Table("Clases"));
+
+        return tables;
+
+    }
+
+
 }

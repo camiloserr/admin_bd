@@ -1,5 +1,6 @@
 package persistence;
 
+import model.Table;
 import model.User;
 
 import java.util.List;
@@ -8,5 +9,6 @@ import java.util.List;
  * Interfaz para obtener los datos
  */
 public interface IUserService {
-    public List<User> getUsers();
+    List<User> getUsers();
+    List<Table> getUSerTables(User u);
 }
