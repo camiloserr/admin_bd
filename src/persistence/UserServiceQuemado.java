@@ -2,6 +2,7 @@ package persistence;
 
 import model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,6 +13,12 @@ import java.util.List;
 public class UserServiceQuemado implements IUserService{
     @Override
     public List<User> getUsers() {
-        return null;
+        List<User> usuarios = new ArrayList<>();
+        usuarios.add(new User("juan"));
+        usuarios.add(new User("pedro"));
+        usuarios.add(new User("SYSTEM"));
+
+        return usuarios;
+
     }
 }
