@@ -46,6 +46,34 @@ public class UserService implements IUserService{
 
     @Override
     public List<Table> getUSerTables(User u) {
-        return null;
+        List<Table> tables = new ArrayList<>();
+        String jdbcURL = "jdbc:oracle:thin:@localhost:1521:XE";
+        String uname = "AdminDB";
+        String pwd = "amendoza1";
+        Connection dbConnection;
+        try
+        {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
+            String user = u.getUsername().toUpperCase();
+            String query = "SELECT TABLE_NAME, owner FROM ALL_TABLES WHERE OWNER = '" + user + "'";
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+
+            while(resultSet.next())
+            {
+                System.out.println( resultSet.getString("TABLE_NAME") );
+
+                Table t = new Table(resultSet.getString("TABLE_NAME"));
+
+                tables.add(t);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error en UserService.getUsers db: " + e.getMessage());
+        }
+        return tables;
     }
 }

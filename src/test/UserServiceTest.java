@@ -1,5 +1,6 @@
 package test;
 
+import model.Table;
 import model.User;
 import persistence.UserService;
 
@@ -19,5 +20,8 @@ class UserServiceTest {
 
     @org.junit.jupiter.api.Test
     void getUSerTablesTest() {
+        UserService userService = new UserService();
+        List<Table> tables = userService.getUSerTables(new User("User1"));
+        assertEquals(1,tables.size());
     }
 }
