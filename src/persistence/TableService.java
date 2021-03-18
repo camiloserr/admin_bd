@@ -13,7 +13,12 @@ public class TableService implements ITableService{
     }
 
     @Override
-    public List<String> getColComments(Table table) {
+    public List<String> getColComments(Table table, String columnName) {
+        return null;
+    }
+
+    @Override
+    public String getColDataType(Table table, String columnName) {
         return null;
     }
 

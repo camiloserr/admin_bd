@@ -1,9 +1,12 @@
 package view;
 
+import model.Columna;
 import model.Table;
 import model.User;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -19,6 +22,7 @@ public class MainScreen {
     private JTextArea textAreaTableInfo;
 
     private List<User> users;
+    private Vector<Table> userTables;
     private View view;
 
     public MainScreen(View view) {
@@ -38,10 +42,67 @@ public class MainScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 User u = (User) listUserTables.getSelectedValue();
-                Vector<Table> v = new Vector<>(view.getUserTable( u ));
-                listUserTables.setListData(v);
+                userTables = new Vector<>(view.getUserTable( u ));
+                listUserTables.setListData(userTables);
             }
         });
+
+
+        // List selection listener
+        listUserTables.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(!e.getValueIsAdjusting()) {
+                    showTableInfo(userTables.get(listUserTables.getSelectedIndex()));
+                    System.out.println(listUserTables.getSelectedIndex());
+                }
+            }
+
+
+        });
+    }
+
+    private void showTableInfo(Table table) {
+        String info = "";
+
+        info += ("NOMBRE DE LA TABLA: " + table.getName() + "\n");
+
+
+        if(table.getRestrictions() == null){
+            info += "Esta tabla no tiene restricciones\n";
+        }
+        else {
+
+            info += "Restricciones:\n";
+            for (String res : table.getRestrictions()) {
+                info += ("  -" + res);
+            }
+        }
+
+        if(table.getComments() == null) {
+            info += "Esta tabla no tiene comentarios\n";
+
+        }
+        else {
+            info += "Comentarios:\n";
+            for (String com : table.getComments()) {
+                info += ("  -" + com);
+            }
+        }
+
+        if(table.getIndices() == null) {
+            info += "Esta tabla no tiene indices\n";
+
+        }
+        else {
+
+            info += "Indices:\n";
+            for (String ind : table.getIndices()) {
+                info += ("  -" + ind);
+            }
+        }
+
+        textAreaTableInfo.setText(info);
 
 
     }

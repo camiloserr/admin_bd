@@ -1,4 +1,6 @@
 package persistence;
+import model.Function;
+import model.Procedure;
 import model.Table;
 import model.User;
 
@@ -75,5 +77,20 @@ public class UserService implements IUserService{
             System.out.println("Error en UserService.getUsers db: " + e.getMessage());
         }
         return tables;
+    }
+
+    @Override
+    public List<Package> getPackages(User u) {
+        return null;
+    }
+
+    @Override
+    public List<Function> getFunctions(User u) {
+        return null;
+    }
+
+    @Override
+    public List<Procedure> getProcedures(User u) {
+        return null;
     }
 }
