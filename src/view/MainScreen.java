@@ -16,6 +16,7 @@ public class MainScreen {
     private JPanel panel1;
     private JComboBox comboBoxUsers;
     private JList listUserTables;
+    private JTextArea textAreaTableInfo;
 
     private List<User> users;
     private View view;
