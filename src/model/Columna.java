@@ -7,6 +7,10 @@ public class Columna {
     String dataType;
     List<String> comments;
 
+    public Columna(String name) {
+        this.name = name;
+    }
+
     public Columna(String name, String dataType, List<String> comments) {
         this.name = name;
         this.dataType = dataType;

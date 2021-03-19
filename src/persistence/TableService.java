@@ -7,18 +7,48 @@ import java.util.List;
 
 public class TableService implements ITableService{
 
+    private final String jdbcURL;
+    private final String uname;
+    private final String pwd;
+    public TableService()
+    {
+        jdbcURL = "jdbc:oracle:thin:@//localhost:1521/XEPDB1";
+        uname = "AdminDB";
+        pwd = "amendoza1";
+    }
+
     @Override
-    public List<String> getTabComments(Table table) {
+    public String getTabComments(Table table, User u) {
+        String comments = "";
+
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
+            String username = u.getUsername().toUpperCase();
+            String tablename = table.getName().toUpperCase();
+
+            String query = "select  COMMENTS from ALL_TAB_COMMENTS where OWNER = '"+ username + "' and TABLE_NAME = '" + tablename + "'";
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while(resultSet.next())
+            {
+                comments = resultSet.getString("COMMENTS");
+            }
+
+        }catch (Exception e){
+
+        }
+
+        return comments;
+    }
+
+    @Override
+    public String getColComments(Table table, String columnName, User u) {
         return null;
     }
 
     @Override
-    public List<String> getColComments(Table table, String columnName) {
-        return null;
-    }
-
-    @Override
-    public String getColDataType(Table table, String columnName) {
+    public String getColDataType(Table table, String columnName, User u) {
         return null;
     }
 

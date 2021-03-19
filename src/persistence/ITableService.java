@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface ITableService {
 
-    List<String> getTabComments(Table table);
-    List<String> getColComments(Table table, String columnName);
-    String getColDataType(Table table, String columnName);
+    String getTabComments(Table table, User u);
+    String getColComments(Table table, String columnName, User u);
+    String getColDataType(Table table, String columnName, User u);
     List<String> getTableRest(Table table, User user);
     List<String> getIndexes(Table table);
 }

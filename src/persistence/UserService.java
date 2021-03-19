@@ -1,9 +1,7 @@
 package persistence;
-import model.Function;
-import model.Procedure;
-import model.Table;
-import model.User;
+import model.*;
 
+import java.lang.Package;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,11 +49,10 @@ public class UserService implements IUserService{
     @Override
     public List<Table> getUSerTables(User u) {
         List<Table> tables = new ArrayList<>();
-        Connection dbConnection;
         try
         {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
+            Connection dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
             String user = u.getUsername().toUpperCase();
             String query = "SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER = '" + user + "'";
             Statement statement = dbConnection.createStatement();
@@ -64,16 +61,25 @@ public class UserService implements IUserService{
 
             while(resultSet.next())
             {
-                System.out.println( resultSet.getString("TABLE_NAME") );
 
                 Table t = new Table(resultSet.getString("TABLE_NAME"));
+                String colQuery = "select COLUMN_NAME from ALL_TAB_COLUMNS where TABLE_NAME = '" + t.getName() + "' and OWNER = '"+ user + "'";
+                Statement statement2 = dbConnection.createStatement();
+                ResultSet colsResultSet = statement2.executeQuery(colQuery);
+                List<Columna> columns = new ArrayList<>();
+                while( colsResultSet.next() )
+                {
+                    System.out.println(t.getName() + " col: " + colsResultSet.getString("COLUMN_NAME"));
+                    columns.add( new Columna(colsResultSet.getString("COLUMN_NAME") ));
+                }
+                t.setColumns(columns);
 
                 tables.add(t);
             }
         }
         catch (Exception e)
         {
-            System.out.println("Error en UserService.getUsers db: " + e.getMessage());
+            System.out.println("Error en UserService.getUserTables db: " + e.getMessage());
         }
         return tables;
     }
