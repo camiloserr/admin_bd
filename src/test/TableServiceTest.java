@@ -15,12 +15,16 @@ class TableServiceTest {
 
         String res = tableService.getTabComments(new Table("Ejemplo1"), new User("User1"));
 
-        assertNotEquals("",res);
+        assertEquals("Comentario 2 prueba de ejemplo1",res);
     }
 
     @Test
     void getColComments() {
+        TableService tableService = new TableService();
 
+        String res = tableService.getColComments(new Table("Ejemplo1"), "COLEJ1", new User("User1"));
+
+        assertEquals("Comentario 2 en col1",res);
 
 
     }

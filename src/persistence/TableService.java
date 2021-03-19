@@ -44,7 +44,27 @@ public class TableService implements ITableService{
 
     @Override
     public String getColComments(Table table, String columnName, User u) {
-        return null;
+        String comments = "";
+
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
+            String username = u.getUsername().toUpperCase();
+            String tablename = table.getName().toUpperCase();
+
+            String query = "select  COMMENTS from ALL_COL_COMMENTS where OWNER = '"+ username + "' and TABLE_NAME = '" + tablename + "' and COLUMN_NAME = '" + columnName + "'";
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while(resultSet.next())
+            {
+                comments = resultSet.getString("COMMENTS");
+            }
+
+        }catch (Exception e){
+
+        }
+
+        return comments;
     }
 
     @Override
