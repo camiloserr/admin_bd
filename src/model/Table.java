@@ -78,13 +78,21 @@ public class Table {
         }
     }
 
-    public void addColDataType(String columnName, String datatype) {
+    public void addColDataType(String columnName, String datatype) throws Exception {
+        boolean added = false;
         for(Columna c : this.columns)
         {
             if( c.getName().equals(columnName))
             {
+                added = true;
                 c.setDataType(comments);
             }
+        }
+        if(!added)
+        {
+            //System.out.println("ddd");
+            throw new Exception("Column not found on table" + this.name);
+
         }
     }
 }

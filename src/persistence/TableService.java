@@ -58,7 +58,7 @@ public class TableService implements ITableService{
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next())
             {
-                comments = resultSet.getString("COMMENTS");
+                comments = resultSet.getString("COMMENTS");//TODO: Handlear error
                 table.addColComments(columnName,comments);
             }
 
@@ -85,11 +85,16 @@ public class TableService implements ITableService{
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next())
             {
-                datatype = resultSet.getString("DATA_TYPE");
-                table.addColDataType(columnName,datatype);//TODO: HANDLEAR ERRORES
+                String value = resultSet.getString("DATA_TYPE");
+                //System.out.println("pre");
+                table.addColDataType(columnName,value);//TODO: HANDLEAR ERRORES
+               // System.out.println("post");
+                datatype = value;
             }
 
         }catch (Exception e){
+
+            System.out.println("On TableServie.getColDataType : " + e.getMessage());
 
         }
 
