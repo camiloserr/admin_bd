@@ -31,6 +31,12 @@ class TableServiceTest {
 
     @Test
     void getColDataType() {
+
+        TableService tableService = new TableService();
+
+        String res = tableService.getColDataType(new Table("Ejemplo1"), "COLEJ1", new User("User1"));
+
+        assertEquals("VARCHAR2",res);
     }
 
     @Test
