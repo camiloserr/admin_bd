@@ -2,7 +2,7 @@ package persistence;
 
 import model.Table;
 import model.User;
-
+import java.sql.*;
 import java.util.List;
 
 public class TableService implements ITableService{

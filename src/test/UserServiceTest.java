@@ -15,13 +15,13 @@ class UserServiceTest {
         UserService userService = new UserService();
         List<User> users = userService.getUsers();
 
-        assertEquals(13,users.size());
+        assertEquals(39,users.size());
     }
 
     @org.junit.jupiter.api.Test
     void getUSerTablesTest() {
         UserService userService = new UserService();
         List<Table> tables = userService.getUSerTables(new User("User1"));
-        assertEquals(1,tables.size());
+        assertEquals(3,tables.size());
     }
 }
