@@ -13,10 +13,11 @@ public class UserService implements IUserService{
     private final String pwd;
     public UserService()
     {
-        jdbcURL = "jdbc:oracle:thin:@//localhost:1521/XEPDB1";
-        uname = "AdminDB";
-        pwd = "amendoza1";
+        jdbcURL = "jdbc:oracle:thin:@localhost:1521:XE";
+        uname = "CAMILOADMIN";
+        pwd = "basesdedatos2021";
     }
+
     @Override
     public List<User> getUsers() {
         //System.out.println("Init function");
@@ -26,22 +27,56 @@ public class UserService implements IUserService{
         {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
-            String query = "SELECT username FROM all_users";
+
+            String query =  "SELECT username FROM all_users";
             Statement statement = dbConnection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
 
             while(resultSet.next())
             {
-                System.out.println( resultSet.getString("USERNAME") );
 
-                User u = new User( resultSet.getString("USERNAME"));
+                User u = new User( resultSet.getString(1));
 
                 users.add(u);
             }
         }
         catch (Exception e)
         {
+            e.printStackTrace();
+            System.out.println("Error en UserService.getUsers db: " + e.getMessage());
+        }
+
+        return users;
+    }
+
+    @Override
+    public List<User> getUsersSpace() {
+        //System.out.println("Init function");
+        List<User> users = new ArrayList<>();
+        Connection dbConnection;
+        try
+        {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
+
+            String query = "select owner, sum(BYTES)/1024/1024 MB from DBA_EXTENTS group by OWNER order by OWNER";
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+
+            while(resultSet.next())
+            {
+
+                User u = new User( resultSet.getString(1));
+                u.setSpace(resultSet.getString(2));
+
+                users.add(u);
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
             System.out.println("Error en UserService.getUsers db: " + e.getMessage());
         }
 

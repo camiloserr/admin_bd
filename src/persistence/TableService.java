@@ -14,9 +14,9 @@ public class TableService implements ITableService{
     private final String pwd;
     public TableService()
     {
-        jdbcURL = "jdbc:oracle:thin:@//localhost:1521/XEPDB1";
-        uname = "AdminDB";
-        pwd = "amendoza1";
+        jdbcURL = "jdbc:oracle:thin:@localhost:1521:XE";
+        uname = "CAMILOADMIN";
+        pwd = "basesdedatos2021";
     }
 
     @Override

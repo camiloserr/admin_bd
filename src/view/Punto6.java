@@ -27,13 +27,14 @@ public class Punto6 {
     }
 
     private void refreshInfo() {
-        List<User> users = view.getUsers();
+        textArea1.setText("cargando....");
+        List<User> users = view.getUsersSpace();
         String info = "";
         for(User u : users){
             info += u.getUsername();
             info += " -> ";
             info += u.getSpace();
-            info += "\n";
+            info += " MB\n";
         }
 
         textArea1.setText(info);

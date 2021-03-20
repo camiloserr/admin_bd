@@ -73,4 +73,8 @@ public class Controller {
     public User getUserOptions(User user) {
         return userService.getUserObjects(user);
     }
+
+    public List<User> getUsersSpace() {
+        return userService.getUsersSpace();
+    }
 }

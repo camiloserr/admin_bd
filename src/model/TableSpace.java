@@ -6,6 +6,10 @@ public class TableSpace {
     private String availibleSpace;
     private String occupiedSpace;
 
+    public TableSpace(){
+
+    }
+
     public TableSpace(String name, String availibleSpace, String occupiedSpace) {
         this.name = name;
         this.availibleSpace = availibleSpace;

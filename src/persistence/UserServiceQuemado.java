@@ -27,6 +27,11 @@ public class UserServiceQuemado implements IUserService{
     }
 
     @Override
+    public List<User> getUsersSpace() {
+        return null;
+    }
+
+    @Override
     public List<Table> getUSerTables(User u) {
         List<Table> tables = new ArrayList<>();
 

@@ -14,9 +14,9 @@ public class AdminService implements IAdminService{
     private final String pwd;
     public AdminService()
     {
-        jdbcURL = "jdbc:oracle:thin:@//localhost:1521/XEPDB1";
-        uname = "AdminDB";
-        pwd = "amendoza1";
+        jdbcURL = "jdbc:oracle:thin:@localhost:1521:XE";
+        uname = "CAMILOADMIN";
+        pwd = "basesdedatos2021";
     }
     @Override
     public List<Job> getJobs(User u) {
@@ -24,7 +24,7 @@ public class AdminService implements IAdminService{
         try{
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
-            String jobsQuery = "select * from all_scheduler_jobs";
+            String jobsQuery = "select * from all_scheduler_jobs where OWNER = '" +  u.getUsername().toUpperCase() + "'";
             Statement statement = dbConnection.createStatement();
             ResultSet resultSet = statement.executeQuery(jobsQuery);
 
@@ -71,10 +71,10 @@ public class AdminService implements IAdminService{
             String jobsQuery;
             if( j.isEnabled() )
             {
-                jobsQuery = "BEGIN    DBMS_SCHEDULER.ENABLE                        (                           name    =>  '" + u.getUsername() + "." + j.getName() + "'                        );END;";
+                jobsQuery = "BEGIN DBMS_SCHEDULER.ENABLE ( name =>  '" + u.getUsername() + "." + j.getName() + "' );END;";
             }
             else {
-                jobsQuery = "BEGIN    DBMS_SCHEDULER.DISABLE                        (                           name    =>  '" + u.getUsername() + "." + j.getName() + "'                        );END;";
+                jobsQuery = "BEGIN DBMS_SCHEDULER.DISABLE ( name =>  '" + u.getUsername() + "." + j.getName() + "' );END;";
             }
             Statement statement = dbConnection.createStatement();
             ResultSet resultSet = statement.executeQuery(jobsQuery);
@@ -87,6 +87,31 @@ public class AdminService implements IAdminService{
 
     @Override
     public List<TableSpace> getTableSpaces() {
-        return null;
+        List<TableSpace> ts = new ArrayList<>();
+
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection dbConnection = DriverManager.getConnection(jdbcURL, uname, pwd);
+
+            String query = "SELECT tablespace_name, round(sum(BYTES/1024/1024),0) ,  (round  (  max(MAXBYTES/1024/1024) , 0 ) - round(sum(BYTES/1024/1024),0)  )   FROM dba_data_files WHERE tablespace_name NOT LIKE 'TEMP%' GROUP BY dba_data_files.tablespace_name";
+
+
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                TableSpace tablespace = new TableSpace();
+
+                tablespace.setName(resultSet.getString(1));
+                tablespace.setOccupiedSpace(resultSet.getString(2) + " MB");
+                tablespace.setAvailibleSpace(resultSet.getString(3));
+
+                ts.add(tablespace);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return ts;
     }
 }

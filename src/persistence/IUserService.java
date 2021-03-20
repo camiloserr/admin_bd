@@ -13,14 +13,14 @@ import java.util.List;
  */
 public interface IUserService {
 
-    //TODO: traer el espcacio utilizado
     List<User> getUsers();
+    List<User> getUsersSpace();
     List<Table> getUSerTables(User u);
     List<Package> getPackages(User u);
     List<Function> getFunctions(User u);
     List<Procedure> getProcedures(User u);
     User getUserObjects(User u);
 
-    //TODO: punto 2
+
 
 }

@@ -105,4 +105,8 @@ public class View {
     public User getUserOptions(User user) {
         return controller.getUserOptions(user);
     }
+
+    public List<User> getUsersSpace() {
+        return controller.getUsersSpace();
+    }
 }
