@@ -1,5 +1,6 @@
 package view;
 
+import model.Permission;
 import model.User;
 
 import javax.swing.*;
@@ -15,13 +16,13 @@ public class Punto2 {
     private JButton buttonGetInfo;
     private JTextArea textAreaInfoObjects;
 
-
+    private View view;
     private List<User> users;
 
 
     public Punto2(View view){
         this.users = view.getUsers();
-
+        this.view = view;
         //initialize combobox with users
         for( User u : this.users){
             comboBoxUsers.addItem(u);
@@ -42,7 +43,17 @@ public class Punto2 {
      * gets tables and objects from DB and shows the info in textAreaInfoObjects
      */
     private void showObjecsInfo() {
+        textAreaInfoObjects.setText("cargando....");
+        List<Permission> permissionList = view.getPermissions(users.get(comboBoxUsers.getSelectedIndex()));
 
+        String info = "";
+
+        for(Permission p : permissionList){
+            info += p.toString();
+            info += "==============================\n";
+        }
+
+        textAreaInfoObjects.setText(info);
     }
 
 

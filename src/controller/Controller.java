@@ -77,4 +77,8 @@ public class Controller {
     public List<User> getUsersSpace() {
         return userService.getUsersSpace();
     }
+
+    public List<Permission> getPermissions(User user) {
+        return userService.getPermissions(user);
+    }
 }

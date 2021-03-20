@@ -104,7 +104,7 @@ public class AdminService implements IAdminService{
 
                 tablespace.setName(resultSet.getString(1));
                 tablespace.setOccupiedSpace(resultSet.getString(2) + " MB");
-                tablespace.setAvailibleSpace(resultSet.getString(3));
+                tablespace.setAvailibleSpace(resultSet.getString(3) + "MB");
 
                 ts.add(tablespace);
             }

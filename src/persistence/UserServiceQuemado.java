@@ -1,10 +1,8 @@
 package persistence;
 
-import model.Function;
+import model.*;
 import model.Package;
-import model.Procedure;
-import model.Table;
-import model.User;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +83,11 @@ public class UserServiceQuemado implements IUserService{
         u.setFunctions(this.getFunctions(u));
 
         return u;
+    }
+
+    @Override
+    public List<Permission> getPermissions(User u) {
+        return null;
     }
 
 

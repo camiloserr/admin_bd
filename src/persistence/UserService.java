@@ -98,7 +98,7 @@ public class UserService implements IUserService{
 
             while(resultSet.next())
             {
-                System.out.println( resultSet.getString("TABLE_NAME") );
+               // System.out.println( resultSet.getString("TABLE_NAME") );
 
                 Table t = new Table(resultSet.getString("TABLE_NAME"));
                 String colQuery = "select COLUMN_NAME from ALL_TAB_COLUMNS where TABLE_NAME = '" + t.getName() + "' and OWNER = '"+ user + "'";
@@ -107,7 +107,7 @@ public class UserService implements IUserService{
                 List<Columna> columns = new ArrayList<>();
                 while( colsResultSet.next() )
                 {
-                    System.out.println(t.getName() + " col: " + colsResultSet.getString("COLUMN_NAME"));
+                    //System.out.println(t.getName() + " col: " + colsResultSet.getString("COLUMN_NAME"));
 
                     String columnName = colsResultSet.getString("COLUMN_NAME");
                     String dtQuery = "select DATA_TYPE from ALL_TAB_COLUMNS where OWNER = '"+ user + "' and TABLE_NAME = '" + t.getName() + "' and COLUMN_NAME = '" + columnName + "'";
@@ -132,7 +132,7 @@ public class UserService implements IUserService{
                     }
 
 
-                    System.out.println(dataType + "  .  " + comments);
+                    //System.out.println(dataType + "  .  " + comments);
 
                     columns.add( new Columna(columnName,dataType,comments));
                 }
@@ -196,7 +196,7 @@ public class UserService implements IUserService{
                 {
                     procedures.add( new Procedure( resultSet.getString("OBJECT_NAME"), status));
                 }
-                System.out.println(resultSet.getString( "OBJECT_TYPE" ) + "    +    " + resultSet.getString("OBJECT_NAME") + "    +    " + resultSet.getString( "STATUS" ));
+                //System.out.println(resultSet.getString( "OBJECT_TYPE" ) + "    +    " + resultSet.getString("OBJECT_NAME") + "    +    " + resultSet.getString( "STATUS" ));
             }
 
             u.setFunctions(functions);
@@ -208,5 +208,32 @@ public class UserService implements IUserService{
             System.out.println("Error en UserService.getUserObjetcs db: " + e.getMessage());
         }
         return u;
+    }
+
+    @Override
+    public List<Permission> getPermissions(User u){
+        List<Permission> per = new ArrayList<>();
+        Connection dbConnection;
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
+            String query = "select * from DBA_TAB_PRIVS WHERE GRANTEE = '" +  u.getUsername() + "'" ;
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()){
+                String granter = resultSet.getString("GRANTOR");
+                String tableName = resultSet.getString("TABLE_NAME");
+                String type = resultSet.getString("PRIVILEGE");
+                Permission permi = new Permission(granter, tableName, type);
+
+                per.add(permi);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return per;
     }
 }

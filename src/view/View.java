@@ -109,4 +109,8 @@ public class View {
     public List<User> getUsersSpace() {
         return controller.getUsersSpace();
     }
+
+    public List<Permission> getPermissions(User user) {
+        return controller.getPermissions(user);
+    }
 }
