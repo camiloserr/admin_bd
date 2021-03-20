@@ -68,7 +68,8 @@ public class Punto3 {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Job currentJob = jobs.get(listJobs.getSelectedIndex());
-                currentJob = view.changeJobState(currentJob, users.get(comboBoxUsers.getSelectedIndex()));
+                currentJob = view.changeJobState(currentJob
+                        , users.get(comboBoxUsers.getSelectedIndex()));
                 showJobInfo(currentJob);
                 buttonActivateJob.setEnabled(false);
                 buttonDeactivateJob.setEnabled(true);

@@ -59,12 +59,18 @@ public class Controller {
     }
 
     public Job changeJobState(Job j, User u) {
-        adminService.changeJobState(j,u);
-        if(j.isEnabled()){
-            j.setEnabled(false);
+        if(adminService.changeJobState(j,u))
+        {
+            if(j.isEnabled()){
+                j.setEnabled(false);
+            }
+            else{
+                j.setEnabled(true);
+            }
         }
-        else{
-            j.setEnabled(true);
+        else
+        {
+            System.out.println("Camilo la cagó");
         }
 
         return j;

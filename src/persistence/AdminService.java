@@ -24,7 +24,7 @@ public class AdminService implements IAdminService{
         try{
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
-            String jobsQuery = "select * from all_scheduler_jobs";
+            String jobsQuery = "select * from all_scheduler_jobs where OWNER = '" + u.getUsername().toUpperCase() + "'";
             Statement statement = dbConnection.createStatement();
             ResultSet resultSet = statement.executeQuery(jobsQuery);
 
@@ -56,6 +56,7 @@ public class AdminService implements IAdminService{
         }catch (Exception e)
         {
 
+
         }
 
         return jobList;
@@ -71,18 +72,29 @@ public class AdminService implements IAdminService{
             String jobsQuery;
             if( j.isEnabled() )
             {
-                jobsQuery = "BEGIN    DBMS_SCHEDULER.ENABLE                        (                           name    =>  '" + u.getUsername() + "." + j.getName() + "'                        );END;";
+                //jobsQuery = "BEGIN    DBMS_SCHEDULER.ENABLE                        (                           name    =>  '" + u.getUsername().toUpperCase() + "." + j.getName().toUpperCase() + "'                        );END;";
+                jobsQuery = "DBMS_SCHEDULER.ENABLE (  name    =>  '?.?'  )";
+
             }
             else {
-                jobsQuery = "BEGIN    DBMS_SCHEDULER.DISABLE                        (                           name    =>  '" + u.getUsername() + "." + j.getName() + "'                        );END;";
+                //jobsQuery = "BEGIN    DBMS_SCHEDULER.DISABLE                        (                           name    =>  '" + u.getUsername().toUpperCase() + "." + j.getName().toUpperCase() + "'                        );END;";
+                jobsQuery = "BEGIN DBMS_SCHEDULER.DISABLE (  name    =>  '?.?'  );END;";
             }
-            Statement statement = dbConnection.createStatement();
-            ResultSet resultSet = statement.executeQuery(jobsQuery);
+            CallableStatement callableStatement = dbConnection.prepareCall(jobsQuery);
+            callableStatement.setString(1,u.getUsername().toUpperCase());
+            callableStatement.setString(2,j.getName().toUpperCase());
+            callableStatement.executeUpdate();
+            float res = callableStatement.getFloat(1);
+
+            //ResultSet resultSet = statement.executeQuery(jobsQuery);
+
         }catch (Exception e)
         {
+            System.out.println( e.getMessage());
             return false;
         }
-        return true;
+        return  true;
+
     }
 
     @Override
