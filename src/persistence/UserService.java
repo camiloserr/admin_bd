@@ -70,7 +70,33 @@ public class UserService implements IUserService{
                 while( colsResultSet.next() )
                 {
                     System.out.println(t.getName() + " col: " + colsResultSet.getString("COLUMN_NAME"));
-                    columns.add( new Columna(colsResultSet.getString("COLUMN_NAME") ));
+
+                    String columnName = colsResultSet.getString("COLUMN_NAME");
+                    String dtQuery = "select DATA_TYPE from ALL_TAB_COLUMNS where OWNER = '"+ user + "' and TABLE_NAME = '" + t.getName() + "' and COLUMN_NAME = '" + columnName + "'";
+                    String commentsQuery = "select  COMMENTS from ALL_COL_COMMENTS where OWNER = '"+ user + "' and TABLE_NAME = '" + t.getName() + "' and COLUMN_NAME = '" + columnName + "'";
+                    Statement statement3 = dbConnection.createStatement();
+                    ResultSet colsDTResultSet = statement3.executeQuery(dtQuery);
+                    Statement statement4 = dbConnection.createStatement();
+                    ResultSet colsCOMResultSet = statement4.executeQuery(commentsQuery);
+
+                    colsDTResultSet.next();
+                    colsCOMResultSet.next();
+
+                    String dataType = colsDTResultSet.getString("DATA_TYPE");
+                    String comments = colsCOMResultSet.getString("COMMENTS") ;
+
+                    if (dataType == null) {
+                        dataType = "";
+                    }
+                    if(comments == null)
+                    {
+                        comments = "";
+                    }
+
+
+                    System.out.println(dataType + "  .  " + comments);
+
+                    columns.add( new Columna(columnName,dataType,comments));
                 }
                 t.setColumns(columns);
 
