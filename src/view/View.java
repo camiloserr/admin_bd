@@ -71,8 +71,8 @@ public class View {
         return controller.getUserTables(u);
     }
 
-    public List<Job> getJobs() {
-        return controller.getJobs();
+    public List<Job> getJobs(User u) {
+        return controller.getJobs(u);
     }
 
     public List<Function> getFunctions(User user) {

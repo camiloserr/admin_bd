@@ -1,6 +1,7 @@
 package view;
 
 import model.Job;
+import model.User;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -16,16 +17,43 @@ public class Punto3 {
     private JTextArea textAreaInfoJob;
     private JButton buttonActivateJob;
     private JButton buttonDeactivateJob;
+    private JComboBox comboBoxUsers;
+    private JButton buttonUsers;
 
     private Vector<Job> jobs;
 
+    private List<User> users;
+
+    private View view;
 
     public Punto3(View view){
 
         // initialize job list
-        jobs = new Vector(view.getJobs());
 
-        listJobs.setListData(jobs);
+        this.view = view;
+
+
+        this.users = view.getUsers();
+
+        //initialize combobox with users
+        for( User u : this.users){
+            comboBoxUsers.addItem(u);
+        }
+
+
+
+        buttonUsers.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jobs = new Vector(view.getJobs( users.get(comboBoxUsers.getSelectedIndex())));
+                listJobs.setListData(jobs);
+
+            }
+        });
+
+        //System.out.println("en el constructor de 3");
+
+
         listJobs.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -40,7 +68,7 @@ public class Punto3 {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Job currentJob = jobs.get(listJobs.getSelectedIndex());
-                currentJob = view.changeJobState(currentJob);
+                currentJob = view.changeJobState(currentJob, users.get(comboBoxUsers.getSelectedIndex()));
                 showJobInfo(currentJob);
                 buttonActivateJob.setEnabled(false);
                 buttonDeactivateJob.setEnabled(true);
@@ -50,12 +78,13 @@ public class Punto3 {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Job currentJob = jobs.get(listJobs.getSelectedIndex());
-                currentJob = view.changeJobState(currentJob);
+                currentJob = view.changeJobState(currentJob, users.get(comboBoxUsers.getSelectedIndex()));
                 showJobInfo(currentJob);
                 buttonActivateJob.setEnabled(true);
                 buttonDeactivateJob.setEnabled(false);
             }
         });
+
     }
 
     private void showJobInfo(Job job) {

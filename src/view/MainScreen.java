@@ -102,6 +102,13 @@ public class MainScreen {
             }
         }
 
+        for(Columna col : table.getColumns()){
+            info += "  -" + col.getName() + "\n";
+            info += "    +comentarios: " + col.getComments() + "\n";
+            info += "    +tipo de dato: " + col.getDataType() + "\n";
+
+        }
+
         textAreaTableInfo.setText(info);
 
 

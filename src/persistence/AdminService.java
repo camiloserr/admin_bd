@@ -19,7 +19,7 @@ public class AdminService implements IAdminService{
         pwd = "amendoza1";
     }
     @Override
-    public List<Job> getJobs() {
+    public List<Job> getJobs(User u) {
         List<Job> jobList = new ArrayList<>();
         try{
             Class.forName("oracle.jdbc.driver.OracleDriver");

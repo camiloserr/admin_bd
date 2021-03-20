@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AdminServiceQuemado implements IAdminService{
     @Override
-    public List<Job> getJobs() {
+    public List<Job> getJobs(User u) {
 
         String comentarios= "comentario 1";
         List<Job> jobs = new ArrayList<>();
