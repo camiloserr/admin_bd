@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IAdminService {
 
-    List<Job> getJobs();
+    List<Job> getJobs(User u);
     boolean changeJobState(Job j, User u);
     List<TableSpace> getTableSpaces();
 

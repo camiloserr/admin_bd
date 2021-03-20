@@ -31,8 +31,8 @@ public class Controller {
         return userService.getUSerTables(u);
     }
 
-    public List<Job> getJobs(){
-        return adminService.getJobs();
+    public List<Job> getJobs(User u){
+        return adminService.getJobs( u);
     }
 
     public List<Function> getFunctions(User user) {
