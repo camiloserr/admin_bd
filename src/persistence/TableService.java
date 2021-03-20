@@ -44,64 +44,6 @@ public class TableService implements ITableService{
     }
 
     @Override
-    public String getColComments(Table table, String columnName, User u) {
-
-        String comments = "";
-        try{
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
-            String username = u.getUsername().toUpperCase();
-            String tablename = table.getName().toUpperCase();
-
-            String query = "select  COMMENTS from ALL_COL_COMMENTS where OWNER = '"+ username + "' and TABLE_NAME = '" + tablename + "' and COLUMN_NAME = '" + columnName + "'";
-            Statement statement = dbConnection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-            while(resultSet.next())
-            {
-                comments = resultSet.getString("COMMENTS");//TODO: Handlear error
-                table.addColComments(columnName,comments);
-            }
-
-        }catch (Exception e){
-
-        }
-
-        return comments;
-    }
-
-    @Override
-    public String getColDataType(Table table, String columnName, User u) {
-
-
-        String datatype = "";
-        try{
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
-            String username = u.getUsername().toUpperCase();
-            String tablename = table.getName().toUpperCase();
-            String query = "select DATA_TYPE from ALL_TAB_COLUMNS where OWNER = '"+ username + "' and TABLE_NAME = '" + tablename + "' and COLUMN_NAME = '" + columnName + "'";
-            //String query = "select  COMMENTS from ALL_COL_COMMENTS where OWNER = '"+ username + "' and TABLE_NAME = '" + tablename + "' and COLUMN_NAME = '" + columnName + "'";
-            Statement statement = dbConnection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-            while(resultSet.next())
-            {
-                String value = resultSet.getString("DATA_TYPE");
-                //System.out.println("pre");
-                table.addColDataType(columnName,value);//TODO: HANDLEAR ERRORES
-               // System.out.println("post");
-                datatype = value;
-            }
-
-        }catch (Exception e){
-
-            System.out.println("On TableServie.getColDataType : " + e.getMessage());
-
-        }
-
-        return datatype;
-    }
-
-    @Override
     public List<String> getTableRest(Table table, User user) {
         return null;
     }

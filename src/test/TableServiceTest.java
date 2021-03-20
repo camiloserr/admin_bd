@@ -23,31 +23,6 @@ class TableServiceTest {
     }
 
     @Test
-    void getColComments() {
-        TableService tableService = new TableService();
-
-        String res = tableService.getColComments(new Table("Ejemplo1"), "COLEJ1", new User("User1"));
-
-        assertEquals("Comentario 2 en col1",res);
-
-
-    }
-
-    @Test
-    void getColDataType() {
-
-        TableService tableService = new TableService();
-        Table table = new Table("Ejemplo1");
-        List<Columna> columns = new ArrayList<>();
-        columns.add(new Columna("COLEJ1"));
-        table.setColumns(columns);
-
-        String res = tableService.getColDataType(table, "COLEJ1", new User("User1"));
-
-        assertEquals("VARCHAR2",res);
-    }
-
-    @Test
     void getTableRest() {
     }
 
