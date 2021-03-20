@@ -84,10 +84,7 @@ public class MainScreen {
 
         }
         else {
-            info += "Comentarios:\n";
-            for (String com : table.getComments()) {
-                info += ("  -" + com);
-            }
+            info += "Comentarios:\n" + table.getComments();
         }
 
         if(table.getIndices() == null) {

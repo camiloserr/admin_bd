@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Table {
     String name;
-    List<String> comments;
+    String comments;
     List<String> restrictions;
     List<String> indices;
     List<Columna> columns;
@@ -13,7 +13,7 @@ public class Table {
         this.name = name;
     }
 
-    public Table(String name, List<String> comments, List<String> restrictions, List<String> indices, List<Columna> columns) {
+    public Table(String name, String comments, List<String> restrictions, List<String> indices, List<Columna> columns) {
         this.name = name;
         this.comments = comments;
         this.restrictions = restrictions;
@@ -34,11 +34,11 @@ public class Table {
         this.name = name;
     }
 
-    public List<String> getComments() {
+    public String getComments() {
         return comments;
     }
 
-    public void setComments(List<String> comments) {
+    public void setComments(String comments) {
         this.comments = comments;
     }
 
@@ -64,5 +64,33 @@ public class Table {
 
     public void setColumns(List<Columna> columns) {
         this.columns = columns;
+    }
+
+    public void addColComments(String columnName, String comments) {
+        for(Columna c : this.columns)
+        {
+            if( c.getName().equals(columnName))
+            {
+                c.setComments(comments);
+            }
+        }
+    }
+
+    public void addColDataType(String columnName, String datatype) throws Exception {
+        boolean added = false;
+        for(Columna c : this.columns)
+        {
+            if( c.getName().equals(columnName))
+            {
+                added = true;
+                c.setDataType(comments);
+            }
+        }
+        if(!added)
+        {
+            //System.out.println("ddd");
+            throw new Exception("Column not found on table" + this.name);
+
+        }
     }
 }
