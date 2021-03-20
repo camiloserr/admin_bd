@@ -74,8 +74,12 @@ public class UserServiceQuemado implements IUserService{
     }
 
     @Override
-    public void getUserObjects(User u) {
+    public User getUserObjects(User u) {
+        u.setProcedures(this.getProcedures(u));
+        u.setPackages(this.getPackages(u));
+        u.setFunctions(this.getFunctions(u));
 
+        return u;
     }
 
 

@@ -101,4 +101,8 @@ public class View {
     public Job changeJobState(Job j) {
         return controller.changeJobState( j );
     }
+
+    public User getUserOptions(User user) {
+        return controller.getUserOptions(user);
+    }
 }

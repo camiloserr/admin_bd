@@ -17,9 +17,9 @@ public class Controller {
 
 
     public Controller(){
-        userService = new UserService();
+        userService = new UserServiceQuemado();
         adminService = new AdminServiceQuemado();
-        tableService = new TableService();
+        tableService = new TableServiceQuemado();
         View view = new View(this);
 
     }
@@ -69,5 +69,9 @@ public class Controller {
         }
 
         return j;
+    }
+
+    public User getUserOptions(User user) {
+        return userService.getUserObjects(user);
     }
 }

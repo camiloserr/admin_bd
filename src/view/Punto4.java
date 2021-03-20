@@ -42,15 +42,11 @@ public class Punto4 {
     }
 
     private void showUserInfo(User user) {
-        List<Function> functions = view.getFunctions(user);
-        List<Procedure> procedures = view.getProcedures(user);
-        List<Package> packages = view.getPackages(user);
+        user = view.getUserOptions(user);
 
-
-
-        listFunctions.setListData(new Vector(functions));
-        listPackages.setListData(new Vector(packages));
-        listProcedures.setListData(new Vector(procedures));
+        listFunctions.setListData(new Vector(user.getFunctions()));
+        listPackages.setListData(new Vector(user.getPackages()));
+        listProcedures.setListData(new Vector(user.getProcedures()));
     }
 
     public JPanel getPanel1() {

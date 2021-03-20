@@ -129,7 +129,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public void getUserObjects(User u) {
+    public User getUserObjects(User u) {
         Connection dbConnection;
         List<Package> packages = new ArrayList<>();
         List<Function> functions = new ArrayList<>();
@@ -163,10 +163,15 @@ public class UserService implements IUserService{
                 }
                 System.out.println(resultSet.getString( "OBJECT_TYPE" ) + "    +    " + resultSet.getString("OBJECT_NAME") + "    +    " + resultSet.getString( "STATUS" ));
             }
+
+            u.setFunctions(functions);
+            u.setPackages(packages);
+            u.setProcedures(procedures);
         }
         catch (Exception e)
         {
             System.out.println("Error en UserService.getUserObjetcs db: " + e.getMessage());
         }
+        return u;
     }
 }
