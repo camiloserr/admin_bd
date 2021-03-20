@@ -19,6 +19,7 @@ public interface IUserService {
     List<Package> getPackages(User u);
     List<Function> getFunctions(User u);
     List<Procedure> getProcedures(User u);
+    void getUserObjects(User u);
 
     //TODO: punto 2
 

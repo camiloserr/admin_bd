@@ -41,7 +41,7 @@ public class MainScreen {
             // llenar la lista de tablas
             @Override
             public void actionPerformed(ActionEvent e) {
-                User u = (User) listUserTables.getSelectedValue();
+                User u = users.get(comboBoxUsers.getSelectedIndex());
                 userTables = new Vector<>(view.getUserTable( u ));
                 listUserTables.setListData(userTables);
             }

@@ -21,10 +21,6 @@ public class UserService implements IUserService{
     public List<User> getUsers() {
         //System.out.println("Init function");
         List<User> users = new ArrayList<>();
-        String jdbcURL = "jdbc:oracle:thin:@localhost:1521:XE";
-        //String jdbcURL =  "jdbc:oracle:thin:[Admin/amendoza1]@localhost:1521:XE";
-        String uname = "AdminDB";
-        String pwd = "amendoza1";
         Connection dbConnection;
         try
         {
@@ -130,5 +126,47 @@ public class UserService implements IUserService{
     @Override
     public List<Procedure> getProcedures(User u) {
         return null;
+    }
+
+    @Override
+    public void getUserObjects(User u) {
+        Connection dbConnection;
+        List<Package> packages = new ArrayList<>();
+        List<Function> functions = new ArrayList<>();
+        List<Procedure> procedures = new ArrayList<>();
+        try
+        {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
+            String query = "Select OBJECT_NAME, STATUS, OBJECT_TYPE from ALL_OBJECTS where OWNER = '" + u.getUsername() + "'";
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next())
+            {
+                boolean status = false;
+                if( resultSet.getString("STATUS").equals("VALID"))
+                {
+                    status = true;
+                }
+                if(resultSet.getString("OBJECT_TYPE").equals("FUNCTION"))
+                {
+                    functions.add( new Function( resultSet.getString("OBJECT_NAME"), status));
+                }
+                if(resultSet.getString("OBJECT_TYPE").equals("PACKAGE"))
+                {
+                    packages.add( new Package( resultSet.getString("OBJECT_NAME"), status));
+                }
+                if(resultSet.getString("OBJECT_TYPE").equals("PROCEDURE"))
+                {
+                    procedures.add( new Procedure( resultSet.getString("OBJECT_NAME"), status));
+                }
+                System.out.println(resultSet.getString( "OBJECT_TYPE" ) + "    +    " + resultSet.getString("OBJECT_NAME") + "    +    " + resultSet.getString( "STATUS" ));
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error en UserService.getUserObjetcs db: " + e.getMessage());
+        }
     }
 }

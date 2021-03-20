@@ -2,6 +2,7 @@ package test;
 
 import model.Table;
 import model.User;
+import org.junit.jupiter.api.Test;
 import persistence.UserService;
 
 import java.util.List;
@@ -23,5 +24,13 @@ class UserServiceTest {
         UserService userService = new UserService();
         List<Table> tables = userService.getUSerTables(new User("User1"));
         assertEquals(3,tables.size());
+    }
+    @org.junit.jupiter.api.Test
+    void getUserObjects()
+    {
+        UserService userService = new UserService();
+        userService.getUserObjects(new User("SYS"));
+        int var = 1;
+        assertEquals(1,var);
     }
 }

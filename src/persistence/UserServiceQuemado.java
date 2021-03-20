@@ -73,5 +73,10 @@ public class UserServiceQuemado implements IUserService{
 
     }
 
+    @Override
+    public void getUserObjects(User u) {
+
+    }
+
 
 }
