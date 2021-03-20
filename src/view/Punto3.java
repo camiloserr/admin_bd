@@ -64,13 +64,11 @@ public class Punto3 {
         info += "\nNombre: " + job.getName();
         info += "\nDueño: " + job.getOwner();
         info += "\nClase: " + job.getClass();
-        info += "\nComentarios: ";
+        info += "\nComentarios: " + job.getComments();
 
 
-        for(String c  : job.getComments()) {
-            info += "\n  -" + c;
 
-        }
+
 
         if(job.isEnabled()){
             info += "\nEnabled";

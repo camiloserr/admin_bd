@@ -1,6 +1,7 @@
 package persistence;
 import model.Job;
 import model.TableSpace;
+import model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -61,8 +62,27 @@ public class AdminService implements IAdminService{
     }
 
     @Override
-    public boolean changeJobState(Job j) {
-        return false;
+    public boolean changeJobState(Job j, User u) {
+
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection dbConnection = DriverManager.getConnection(jdbcURL, uname, pwd);
+
+            String jobsQuery;
+            if( j.isEnabled() )
+            {
+                jobsQuery = "BEGIN    DBMS_SCHEDULER.ENABLE                        (                           name    =>  '" + u.getUsername() + "." + j.getName() + "'                        );END;";
+            }
+            else {
+                jobsQuery = "BEGIN    DBMS_SCHEDULER.DISABLE                        (                           name    =>  '" + u.getUsername() + "." + j.getName() + "'                        );END;";
+            }
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery(jobsQuery);
+        }catch (Exception e)
+        {
+            return false;
+        }
+        return true;
     }
 
     @Override

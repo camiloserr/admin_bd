@@ -2,6 +2,7 @@ package persistence;
 
 import model.Job;
 import model.TableSpace;
+import model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,28 +11,26 @@ public class AdminServiceQuemado implements IAdminService{
     @Override
     public List<Job> getJobs() {
 
-        List<String> comentarios = new ArrayList<>();
-        comentarios.add("comentario 1");
-        comentarios.add("otro comentario");
+        String comentarios= "comentario 1";
         List<Job> jobs = new ArrayList<>();
 
         jobs.add(new Job("Job 1", true, "Juan",
                 "este es el tipo de job", comentarios, "Credential name",
                 "Destination", "program name", "job type", "Job action",
-                2, "schedule owner", "schedule name",
+                "2", "schedule owner", "schedule name",
                 "schedule type", "20/10/2020", "todos los dias", "12/12/2021"));
 
         jobs.add(new Job("Job 2", false, "SYSTEM",
                 "este es el tipo de job", comentarios, "Credential name",
                 "Destination", "program name", "job type", "Job action",
-                2, "schedule owner", "schedule name",
+                "2", "schedule owner", "schedule name",
                 "schedule type", "20/10/2020", "todos los dias", "12/12/2021"));
 
         return jobs;
     }
 
     @Override
-    public boolean changeJobState(Job j) {
+    public boolean changeJobState(Job j, User u) {
         return false;
     }
 

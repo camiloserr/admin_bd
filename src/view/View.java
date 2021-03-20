@@ -98,8 +98,8 @@ public class View {
         return controller.getTableInfo(table,  u);
     }
 
-    public Job changeJobState(Job j) {
-        return controller.changeJobState( j );
+    public Job changeJobState(Job j, User u ) {
+        return controller.changeJobState( j, u );
     }
 
     public User getUserOptions(User user) {

@@ -1,6 +1,7 @@
 package view;
 
 import model.Columna;
+import model.Index;
 import model.Table;
 import model.User;
 
@@ -96,8 +97,8 @@ public class MainScreen {
         else {
 
             info += "Indices:\n";
-            for (String ind : table.getIndices()) {
-                info += ("  -" + ind);
+            for (Index ind : table.getIndices()) {
+                info += ("  -" + ind.getIndexName()) + "\n";
             }
         }
 

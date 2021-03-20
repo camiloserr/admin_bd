@@ -17,7 +17,7 @@ public class Controller {
 
     public Controller(){
         userService = new UserService();//Quemado();
-        adminService = new AdminServiceQuemado();
+        adminService = new AdminService();//Quemado();
         tableService = new TableService();//Quemado();
         View view = new View(this);
 
@@ -58,8 +58,8 @@ public class Controller {
         return table;
     }
 
-    public Job changeJobState(Job j) {
-        adminService.changeJobState(j);
+    public Job changeJobState(Job j, User u) {
+        adminService.changeJobState(j,u);
         if(j.isEnabled()){
             j.setEnabled(false);
         }
