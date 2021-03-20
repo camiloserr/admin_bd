@@ -93,4 +93,13 @@ public class View {
     public List<TableSpace> getTableSpaces() {
         return controller.getTablespaces();
     }
+
+    public Table getTableInfo(Table table, User u) {
+
+        return controller.getTableInfo(table,  u);
+    }
+
+    public Job changeJobState(Job j) {
+        return controller.changeJobState( j );
+    }
 }

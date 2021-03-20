@@ -31,6 +31,11 @@ public class AdminServiceQuemado implements IAdminService{
     }
 
     @Override
+    public boolean changeJobState(Job j) {
+        return false;
+    }
+
+    @Override
     public List<TableSpace> getTableSpaces() {
 
         List<TableSpace> tableSpaces = new ArrayList<>();

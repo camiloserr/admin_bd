@@ -30,11 +30,10 @@ public class Function {
     @Override
     public String toString() {
         if(isState()){
-            return name + " is active";
+            return name + " es valido";
         }
-
         else{
-            return name + " is not active";
+            return name + " no es valido";
 
         }
 

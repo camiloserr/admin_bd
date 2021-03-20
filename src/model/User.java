@@ -3,11 +3,15 @@ package model;
 public class User {
 
     private String username;
-    private String space = "7 MB";
+    private String space;
 
 
     public User(String username) {
         this.username = username;
+    }
+    public User(String username, String space) {
+        this.username = username;
+        this.space = space;
     }
 
     public User(){}

@@ -5,6 +5,8 @@ import model.Job;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Vector;
 
@@ -30,6 +32,28 @@ public class Punto3 {
                 if(!e.getValueIsAdjusting()) {
                     showJobInfo(jobs.get(listJobs.getSelectedIndex()));
                 }
+            }
+        });
+        buttonActivateJob.addActionListener(new ActionListener() {
+
+            // Activar Job
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Job currentJob = jobs.get(listJobs.getSelectedIndex());
+                currentJob = view.changeJobState(currentJob);
+                showJobInfo(currentJob);
+                buttonActivateJob.setEnabled(false);
+                buttonDeactivateJob.setEnabled(true);
+            }
+        });
+        buttonDeactivateJob.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Job currentJob = jobs.get(listJobs.getSelectedIndex());
+                currentJob = view.changeJobState(currentJob);
+                showJobInfo(currentJob);
+                buttonActivateJob.setEnabled(true);
+                buttonDeactivateJob.setEnabled(false);
             }
         });
     }

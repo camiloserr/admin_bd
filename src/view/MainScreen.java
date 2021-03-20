@@ -53,16 +53,18 @@ public class MainScreen {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if(!e.getValueIsAdjusting()) {
-                    showTableInfo(userTables.get(listUserTables.getSelectedIndex()));
+                    User currentUser =  users.get(comboBoxUsers.getSelectedIndex());
+                    showTableInfo(userTables.get(listUserTables.getSelectedIndex()), currentUser);
                     System.out.println(listUserTables.getSelectedIndex());
                 }
             }
-
-
         });
     }
 
-    private void showTableInfo(Table table) {
+    private void showTableInfo(Table table, User u) {
+
+        table = view.getTableInfo(table, u);
+
         String info = "";
 
         info += ("NOMBRE DE LA TABLA: " + table.getName() + "\n");

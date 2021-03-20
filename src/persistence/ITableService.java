@@ -9,5 +9,5 @@ public interface ITableService {
 
     String getTabComments(Table table, User u);
     List<String> getTableRest(Table table, User user);
-    List<String> getIndexes(Table table);
+    List<String> getIndexes(Table table, User user);
 }

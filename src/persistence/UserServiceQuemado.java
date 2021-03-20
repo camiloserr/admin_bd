@@ -18,9 +18,9 @@ public class UserServiceQuemado implements IUserService{
     @Override
     public List<User> getUsers() {
         List<User> usuarios = new ArrayList<>();
-        usuarios.add(new User("juan"));
-        usuarios.add(new User("pedro"));
-        usuarios.add(new User("SYSTEM"));
+        usuarios.add(new User("juan", "7 MB"));
+        usuarios.add(new User("pedro", "14 GB"));
+        usuarios.add(new User("SYSTEM", "4 KB"));
 
         return usuarios;
 

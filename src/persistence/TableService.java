@@ -49,7 +49,7 @@ public class TableService implements ITableService{
     }
 
     @Override
-    public List<String> getIndexes(Table table) {
+    public List<String> getIndexes(Table table, User user) {
         return null;
     }
 }

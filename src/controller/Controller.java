@@ -2,10 +2,7 @@ package controller;
 
 import model.*;
 import model.Package;
-import persistence.AdminServiceQuemado;
-import persistence.IAdminService;
-import persistence.IUserService;
-import persistence.UserServiceQuemado;
+import persistence.*;
 import view.View;
 
 import java.util.List;
@@ -16,11 +13,13 @@ public class Controller {
 
     private static IUserService userService;
     private static IAdminService adminService;
+    private static ITableService tableService;
 
 
     public Controller(){
         userService = new UserServiceQuemado();
         adminService = new AdminServiceQuemado();
+        tableService = new TableServiceQuemado();
         View view = new View(this);
 
     }
@@ -51,5 +50,24 @@ public class Controller {
 
     public List<TableSpace> getTablespaces() {
         return adminService.getTableSpaces();
+    }
+
+    public Table getTableInfo(Table table, User u) {
+        table.setComments(tableService.getTabComments(table, u));
+        table.setRestrictions(tableService.getTableRest(table, u));
+        table.setIndices(tableService.getIndexes(table, u));
+        return table;
+    }
+
+    public Job changeJobState(Job j) {
+        adminService.changeJobState(j);
+        if(j.isEnabled()){
+            j.setEnabled(false);
+        }
+        else{
+            j.setEnabled(true);
+        }
+
+        return j;
     }
 }
