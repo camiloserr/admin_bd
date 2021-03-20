@@ -6,14 +6,14 @@ public class Table {
     String name;
     String comments;
     List<String> restrictions;
-    List<String> indices;
+    List<Index> indices;
     List<Columna> columns;
 
     public Table(String name){
         this.name = name;
     }
 
-    public Table(String name, String comments, List<String> restrictions, List<String> indices, List<Columna> columns) {
+    public Table(String name, String comments, List<String> restrictions, List<Index> indices, List<Columna> columns) {
         this.name = name;
         this.comments = comments;
         this.restrictions = restrictions;
@@ -50,11 +50,11 @@ public class Table {
         this.restrictions = restrictions;
     }
 
-    public List<String> getIndices() {
+    public List<Index> getIndices() {
         return indices;
     }
 
-    public void setIndices(List<String> indices) {
+    public void setIndices(List<Index> indices) {
         this.indices = indices;
     }
 

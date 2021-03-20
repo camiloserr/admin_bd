@@ -1,5 +1,6 @@
 package persistence;
 
+import model.Index;
 import model.Table;
 import model.User;
 
@@ -18,7 +19,7 @@ public class TableServiceQuemado implements ITableService {
     }
 
     @Override
-    public List<String> getIndexes(Table table, User user) {
+    public List<Index> getIndexes(Table table, User user) {
         return null;
     }
 

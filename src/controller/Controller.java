@@ -17,9 +17,9 @@ public class Controller {
 
 
     public Controller(){
-        userService = new UserServiceQuemado();
+        userService = new UserService();//Quemado();
         adminService = new AdminServiceQuemado();
-        tableService = new TableServiceQuemado();
+        tableService = new TableService();//Quemado();
         View view = new View(this);
 
     }

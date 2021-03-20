@@ -1,8 +1,10 @@
 package persistence;
 
+import model.Index;
 import model.Table;
 import model.User;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TableService implements ITableService{
@@ -49,7 +51,29 @@ public class TableService implements ITableService{
     }
 
     @Override
-    public List<String> getIndexes(Table table, User user) {
-        return null;
+    public List<Index> getIndexes(Table table, User user) {
+
+        List<Index> indexList = new ArrayList<>();
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
+
+            String indexQuery = "select INDEX_NAME,COLUMN_NAME from ALL_IND_COLUMNS where TABLE_NAME = '" + table.getName() + "' and INDEX_OWNER = '" + user.getUsername() + "'";
+
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery(indexQuery);
+            while(resultSet.next())
+            {
+                indexList.add(new Index(resultSet.getString("INDEX_NAME"), resultSet.getString("COLUMN_NAME")));
+            }
+
+        }catch (Exception e){
+
+            System.out.println( "On TableService.getIndexes: " + e.getMessage() );
+
+        }
+
+
+        return indexList;
     }
 }
