@@ -7,13 +7,13 @@ public class Job {
     private boolean enabled;
     private String owner;
     private String jobClass;
-    private List<String> comments;
+    private String comments;
     private String credentialName;
     private String destination;
     private String programName;
     private String jobType;
     private String jobAction;
-    private int numberOfArguments;
+    private String numberOfArguments;
     private String scheduleOwner;
     private String shceduleName;
     private String scheduleType;
@@ -21,10 +21,10 @@ public class Job {
     private String repeatInterval;
     private String endDate;
 
-    public Job(String name, boolean enabled, String owner, String jobClass, List<String> comments,
-               String credentialName, String destination, String programName, String jobType, String jobAction,
-               int numberOfArguments, String scheduleOwner, String shceduleName, String scheduleType, String startDate,
-               String repeatInterval, String endDate) {
+    public Job(String name, boolean enabled, String owner, String jobClass, String comments, String credentialName,
+               String destination, String programName, String jobType, String jobAction, String numberOfArguments,
+               String scheduleOwner, String shceduleName, String scheduleType, String startDate, String repeatInterval,
+               String endDate) {
         this.name = name;
         this.enabled = enabled;
         this.owner = owner;
@@ -44,6 +44,10 @@ public class Job {
         this.endDate = endDate;
     }
 
+    public Job() {
+
+    }
+
 
     public String getName() {
         return name;
@@ -57,7 +61,18 @@ public class Job {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(String enabled) {
+        if(enabled.equals(""))
+        {
+            this.enabled = true;
+        }
+        else
+        {
+            this.enabled = false;
+        }
+    }
+    public void setEnabled(boolean enabled)
+    {
         this.enabled = enabled;
     }
 
@@ -77,11 +92,11 @@ public class Job {
         this.jobClass = jobClass;
     }
 
-    public List<String> getComments() {
+    public String getComments() {
         return comments;
     }
 
-    public void setComments(List<String> comments) {
+    public void setComments(String comments) {
         this.comments = comments;
     }
 
@@ -125,11 +140,11 @@ public class Job {
         this.jobAction = jobAction;
     }
 
-    public int getNumberOfArguments() {
+    public String getNumberOfArguments() {
         return numberOfArguments;
     }
 
-    public void setNumberOfArguments(int numberOfArguments) {
+    public void setNumberOfArguments(String numberOfArguments) {
         this.numberOfArguments = numberOfArguments;
     }
 
