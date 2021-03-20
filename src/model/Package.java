@@ -24,4 +24,15 @@ public class Package {
     public void setState(boolean state) {
         this.state = state;
     }
+
+    @Override
+    public String toString() {
+        if (isState()) {
+            return name + " is active";
+        } else {
+            return name + " is not active";
+
+        }
+
+    }
 }

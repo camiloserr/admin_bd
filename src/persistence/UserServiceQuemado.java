@@ -1,6 +1,7 @@
 package persistence;
 
 import model.Function;
+import model.Package;
 import model.Procedure;
 import model.Table;
 import model.User;
@@ -40,17 +41,36 @@ public class UserServiceQuemado implements IUserService{
 
     @Override
     public List<Package> getPackages(User u) {
-        return null;
+        List<Package> pack = new ArrayList<>();
+
+        pack.add(new Package("paquete 1", true));
+        pack.add(new Package("paquete 2", false));
+        pack.add(new Package("paquete 3", false));
+        pack.add(new Package("paquete 4", true));
+        return pack;
     }
+
 
     @Override
     public List<Function> getFunctions(User u) {
-        return null;
+        List<Function> func = new ArrayList<>();
+
+        func.add(new Function("calcular promedio", true));
+        func.add(new Function("eliminar estudiantes", false));
+        func.add(new Function("cerrar semestre", true));
+
+        return func;
     }
 
     @Override
     public List<Procedure> getProcedures(User u) {
-        return null;
+        List<Procedure> proc = new ArrayList<>();
+
+        proc.add(new Procedure("procedimiento 1", false));
+        proc.add(new Procedure("procedimiento 2", false));
+        proc.add(new Procedure("procedimiento 3", true));
+        return proc;
+
     }
 
 

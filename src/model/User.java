@@ -3,7 +3,8 @@ package model;
 public class User {
 
     private String username;
-    private String space;
+    private String space = "7 MB";
+
 
     public User(String username) {
         this.username = username;
@@ -17,6 +18,10 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getSpace() {
+        return space;
     }
 
     @Override

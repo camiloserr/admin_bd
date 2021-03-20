@@ -1,7 +1,7 @@
 package persistence;
 import model.*;
+import model.Package;
 
-import java.lang.Package;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +19,17 @@ public class UserService implements IUserService{
     }
     @Override
     public List<User> getUsers() {
+        //System.out.println("Init function");
         List<User> users = new ArrayList<>();
+        String jdbcURL = "jdbc:oracle:thin:@localhost:1521:XE";
+        //String jdbcURL =  "jdbc:oracle:thin:[Admin/amendoza1]@localhost:1521:XE";
+        String uname = "AdminDB";
+        String pwd = "amendoza1";
+        Connection dbConnection;
         try
         {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
+            dbConnection = DriverManager.getConnection(jdbcURL,uname,pwd);
             String query = "SELECT username FROM all_users";
             Statement statement = dbConnection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -61,6 +67,7 @@ public class UserService implements IUserService{
 
             while(resultSet.next())
             {
+                System.out.println( resultSet.getString("TABLE_NAME") );
 
                 Table t = new Table(resultSet.getString("TABLE_NAME"));
                 String colQuery = "select COLUMN_NAME from ALL_TAB_COLUMNS where TABLE_NAME = '" + t.getName() + "' and OWNER = '"+ user + "'";

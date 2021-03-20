@@ -23,9 +23,7 @@ public class Table {
 
     @Override
     public String toString() {
-        return "Table{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
     }
 
     public String getName() {
